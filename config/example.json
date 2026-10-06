@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "configVersion": "DEMO-1",
+  "organization": "示範事業單位",
+  "timeZone": "Asia/Taipei",
+  "mode": "sandbox",
+  "allowSelfConfirmation": false,
+  "sites": [{ "id": "SITE-A", "name": "示範作業區" }],
+  "equipment": [
+    { "id": "EQ-FORK-01", "name": "示範堆高機", "siteId": "SITE-A", "active": true },
+    { "id": "EQ-CRANE-01", "name": "示範固定式起重機", "siteId": "SITE-A", "active": true }
+  ],
+  "templates": [
+    { "id": "FORK-D", "version": 1, "signatureRequired": true, "items": [
+      { "id": "BRAKE", "label": "煞車功能", "method": "依核定程序確認", "photoPolicy": "none" },
+      { "id": "HORN", "label": "喇叭功能", "method": "依核定程序確認", "photoPolicy": "none" }
+    ] },
+    { "id": "FORK-M", "version": 1, "signatureRequired": true, "items": [
+      { "id": "BATTERY", "label": "電力及接線狀況", "method": "依核定程序確認", "photoPolicy": "none" }
+    ] },
+    { "id": "CRANE-D", "version": 1, "signatureRequired": true, "items": [
+      { "id": "ESTOP", "label": "緊急停止裝置正常作動", "method": "依核定程序確認", "photoPolicy": "none" }
+    ] },
+    { "id": "CRANE-M", "version": 1, "signatureRequired": true, "items": [
+      { "id": "ESTOP", "label": "緊急停止裝置正常作動", "method": "依核定程序確認", "photoPolicy": "none" }
+    ] }
+  ],
+  "requirements": [
+    { "id": "REQ-FORK-D", "equipmentId": "EQ-FORK-01", "templateId": "FORK-D", "cycle": "daily", "schedule": "workdays", "active": true },
+    { "id": "REQ-FORK-M", "equipmentId": "EQ-FORK-01", "templateId": "FORK-M", "cycle": "monthly", "schedule": "calendar-month", "active": true },
+    { "id": "REQ-CRANE-D", "equipmentId": "EQ-CRANE-01", "templateId": "CRANE-D", "cycle": "daily", "schedule": "workdays", "active": true },
+    { "id": "REQ-CRANE-M", "equipmentId": "EQ-CRANE-01", "templateId": "CRANE-M", "cycle": "monthly", "schedule": "calendar-month", "active": true }
+  ],
+  "calendar": { "workingWeekdays": [1, 2, 3, 4, 5], "closedDates": [] },
+  "people": [
+    { "id": "demo-inspector", "label": "示範檢查人", "roles": ["inspect"], "sites": ["SITE-A"], "active": true, "lineBinding": null },
+    { "id": "demo-handler", "label": "示範處理人", "roles": ["handle"], "sites": ["SITE-A"], "active": true, "lineBinding": "FAKE-BINDING-H" },
+    { "id": "demo-confirm", "label": "示範確認人", "roles": ["confirm"], "sites": ["SITE-A"], "active": true, "lineBinding": "FAKE-BINDING-C" },
+    { "id": "demo-viewer", "label": "示範檢視人", "roles": ["view"], "sites": ["SITE-A"], "active": true, "lineBinding": null },
+    { "id": "demo-admin", "label": "示範管理者", "roles": ["admin"], "sites": ["SITE-A"], "active": true, "lineBinding": null }
+  ],
+  "notificationRules": [
+    { "id": "RULE-OPEN", "event": "opened", "scope": { "siteIds": ["SITE-A"] }, "roles": ["handle", "confirm"], "urgency": "all", "active": true },
+    { "id": "RULE-CONFIRM", "event": "awaiting_confirmation", "scope": { "siteIds": ["SITE-A"] }, "roles": ["confirm"], "urgency": "all", "active": true },
+    { "id": "RULE-RETURN", "event": "returned", "scope": { "siteIds": ["SITE-A"] }, "roles": ["handle"], "urgency": "all", "active": true },
+    { "id": "RULE-REOPEN", "event": "reopened", "scope": { "siteIds": ["SITE-A"] }, "roles": ["handle"], "urgency": "all", "active": true }
+  ]
+}

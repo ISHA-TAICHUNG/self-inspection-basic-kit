@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>自主檢查管理｜隔離試行</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><div class="brand"><i data-lucide="clipboard-check"></i><strong>自主檢查管理</strong><span id="organization"></span></div>
+    <div class="identity"><label for="actor">測試身分</label><select id="actor" aria-label="測試身分"></select><span id="google-actor"></span></div>
+  </header>
+  <div class="environment"><span class="dot"></span><strong id="environment-label">隔離示範</strong><span>虛構設備與資料 · LINE 發送停用 · 非正式檢查紀錄</span></div>
+  <div class="workspace">
+    <nav aria-label="主要選單">
+      <button type="button" data-view="inspection" class="nav active"><i data-lucide="clipboard-check"></i>設備檢查</button>
+      <button type="button" data-view="event" class="nav"><i data-lucide="siren"></i>事件通報</button>
+      <button type="button" data-view="cases" class="nav"><i data-lucide="wrench"></i>案件追蹤<span id="case-count"></span></button>
+      <button type="button" data-view="dashboard" class="nav"><i data-lucide="layout-dashboard"></i>中控查閱</button>
+      <div class="nav-foot"><span>基礎套件 v0.2.0</span><span id="updated-at"></span></div>
+    </nav>
+    <main>
+      <div id="message" role="status" aria-live="polite" hidden></div>
+      <div id="retry-area" hidden><button id="retry" type="button"><i data-lucide="rotate-cw"></i>重試原操作</button><span>保留同一操作編號與內容</span></div>
+      <section id="setup" hidden><h1>初始化隔離資源</h1><p>建立本人的私人測試資料庫與示範 PDF 資料夾，不連正式資料、不發 LINE。</p><button id="initialize" type="button" class="primary"><i data-lucide="database"></i>建立隔離測試資源</button></section>
+      <section id="inspection" class="view">
+        <div class="section-heading"><div><span class="eyebrow">行動填報</span><h1>設備檢查</h1></div><span class="tag">範例項目，非完整核定檢查表</span></div>
+        <form id="inspection-form">
+          <div class="form-grid"><label>設備與週期<select id="requirement" required></select></label><label>檢查日期<input id="inspection-date" type="date" readonly required></label></div>
+          <div id="inspection-items" class="inspection-items"></div>
+          <div class="signature-row"><label><input type="checkbox" id="signature" required>使用示範簽名引用</label><span>正式簽名與照片層尚未開放</span></div>
+          <div class="form-footer"><span id="inspector-label"></span><button class="primary" id="submit-inspection" type="submit"><i data-lucide="send"></i>送出示範檢查</button></div>
+        </form>
+      </section>
+      <section id="event" class="view" hidden>
+        <div class="section-heading"><div><span class="eyebrow">影響作業的事件</span><h1>事件通報</h1></div><span class="tag warning">緊急聯繫仍依既有程序</span></div>
+        <form id="event-form"><div class="form-grid">
+          <label>地點<select id="event-site" required></select></label><label>事件類型<select id="event-category"><option>作業影響</option><option>場地設施</option><option>需協助事項</option></select></label>
+          <label>緊急程度<select id="event-urgency"><option value="general">一般</option><option value="urgent">緊急</option></select></label>
+        </div><label>事件說明<textarea id="event-description" rows="5" maxlength="2000" required></textarea></label>
+          <div class="form-footer"><span>通知僅作名單預覽，不實際發送</span><button type="submit" id="submit-event" class="primary"><i data-lucide="send"></i>建立示範通報</button></div>
+        </form>
+      </section>
+      <section id="cases" class="view" hidden>
+        <div class="section-heading"><div><span class="eyebrow">處理與確認分開</span><h1>案件追蹤</h1></div><button type="button" class="refresh"><i data-lucide="refresh-cw"></i>更新</button></div>
+        <div id="cases-list"></div>
+      </section>
+      <section id="dashboard" class="view" hidden>
+        <div class="section-heading"><div><span class="eyebrow">當期示範設定</span><h1>中控查閱</h1></div><button type="button" class="refresh"><i data-lucide="refresh-cw"></i>更新</button></div>
+        <div id="metrics" class="metrics"></div>
+        <h2>每日與每月進度</h2><div id="progress-table" class="table-wrap"></div>
+        <h2>檢查紀錄</h2><div id="records-table" class="table-wrap"></div>
+        <h2>系統運作</h2><div id="health" class="health"></div>
+      </section>
+    </main>
+  </div>
+  <dialog id="case-dialog"><div class="dialog-heading"><h2 id="case-title">案件內容</h2><button type="button" id="close-dialog" class="icon-button" aria-label="關閉" title="關閉"><i data-lucide="x"></i></button></div>
+    <p id="dialog-message" role="status" hidden></p>
+    <div id="case-details"></div><div id="case-history"></div>
+    <form id="case-action-form"><label id="action-input-label">處理說明<textarea id="action-input" maxlength="2000" rows="3"></textarea></label><label id="completion-label">完成日期<input type="date" id="completion-date"></label><div id="case-actions" class="actions"></div></form>
+    <div id="notification-preview"></div>
+  </dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

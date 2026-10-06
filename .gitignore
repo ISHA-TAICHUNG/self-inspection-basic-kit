@@ -1,0 +1,10 @@
+.local/
+.release/
+node_modules/
+.env
+.env.*
+!.env.example
+.clasp.json
+.clasprc.json
+*.log
+.DS_Store
