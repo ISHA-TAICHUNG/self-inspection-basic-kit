@@ -14,11 +14,11 @@
 | Google 身分層 | 採 Google 加核定名單；取伺服器 active user，空白／未知身分拒絕，限 MYSELF 擁有者測試 |
 | Sheets 隔離儲存 | 已實作分段保存、seal、摘要與讀回；編譯後 GAS 模擬測試通過，真實雲端仍待驗證 |
 | 示範 PDF | 已實作本機與 GAS 層，標示非正式紀錄；雲端產檔及權限仍待實測 |
-| Google 部署 | 已建立獨立 owner-only Web App；依使用者新帳號另建隔離專案，不搬移原專案。新帳號授權與資源初始化仍待驗證 |
+| Google 部署 | 依使用者新帳號另建獨立 owner-only Web App 版本 1，4 個部署檔與遠端版本逐檔相符；不搬移原專案。Google 安全提示須本人操作，資源初始化仍待驗證 |
 | LINE | 沒有 sender／external_request scope，僅虛構名單預覽，實際發送 0 則 |
 | 排程 | 沒有觸發器安裝入口，未安裝觸發器；日常不用 LLM |
 | 簽名／照片／一般使用者 | 正式本人簽名、照片、多人 Google 全流程及撤權未完成 |
-| 新 GitHub 原始碼發布 | 發布前審查中，尚未推送；完成後更新此列 |
+| 新 GitHub 原始碼發布 | 已公開獨立 MIT 測試版來源：ISHA-TAICHUNG/self-inspection-basic-kit；50 個候選檔，不含正式專案歷史或私人部署資訊。不是正式營運版 |
 
 本輪 `npm test`：60 項通過（含編譯後 GAS VM），不包含真實 Google Sheets／Drive 或 LINE 送達。原始 45 項政策測試保留。瀏覽器實際走完不同**本機假角色**的檢查、接案、回報、確認與名單預覽，不能當作不同真人 Google 帳號驗收。
 

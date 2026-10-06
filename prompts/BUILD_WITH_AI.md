@@ -1,6 +1,6 @@
 # 常見大語言模型建置提示詞
 
-目前來源：本套件檔案。日後公開發布，才替換成已核對的 GitHub 網址，不把尚不存在的儲存庫連結當作來源。
+已核對公開來源：https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit 。0.2.0 為隔離試行版；正式替換層未完成，請先讀實作狀態。
 
 ## 通用啟動提示詞
 
@@ -8,7 +8,8 @@
 
 ```text
 請協助我建立事業單位的「自主檢查與異常通報基礎系統」。
-依我提供的 ISHA 基礎套件檔案／已發布儲存庫建置，不另起一套架構。
+來源：https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit
+依這份 ISHA 基礎套件建置，不另起一套架構。
 
 請先讀 START_HERE.md、ARCHITECTURE.md、docs/CONTRACTS.md、
 docs/IMPLEMENTATION_STATUS.md、SETUP_FOR_AI.md 及 AGENTS.md。
@@ -75,7 +76,7 @@ docs/IMPLEMENTATION_STATUS.md、SETUP_FOR_AI.md 及 AGENTS.md。
 ## 給新手的短提示
 
 ```text
-請依這份 ISHA 套件的 START_HERE.md 帶我建置。
+請依 https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit 的 START_HERE.md 帶我建置。
 先核對我單位的設備、每日／每月表及指定通知角色，使用虛構資料跑隔離範例。
 依既定架構產生設定草稿，缺資料請問我。
 不要把密碼、Token 或真實名單放進 GitHub，也不要未經同意部署或發 LINE。

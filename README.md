@@ -61,6 +61,6 @@ npm run check:release
 
 ## 發布狀態
 
-目標 GitHub 擁有者為 **ISHA-TAICHUNG**，獨立儲存庫名稱 `self-inspection-basic-kit`。此目錄不包含本會正式系統的 Git 歷史。實際發布及雲端驗證結果以 [實作狀態](docs/IMPLEMENTATION_STATUS.md) 為準。
+已公開於 [ISHA-TAICHUNG/self-inspection-basic-kit](https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit)，版本 0.2.0 為隔離試行／學習用來源，不是正式營運版。此目錄不包含本會正式系統的 Git 歷史。實際發布及雲端驗證結果以 [實作狀態](docs/IMPLEMENTATION_STATUS.md) 為準。
 
 本套件採 **MIT** 授權，授權文字見 [LICENSE](LICENSE)。第三方圖示另見 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。`private: true` 防止誤發布到 npm，不限制 GitHub 原始碼分享。發布僅取本目錄明確清單，禁止從上層專案執行 `git add .`。
