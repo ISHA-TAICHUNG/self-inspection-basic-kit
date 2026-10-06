@@ -2,9 +2,9 @@
 
 ## Low-Code 導入指南：把網址和提示詞交給 AI，先安裝示範
 
-版本 0.2.0｜隔離試行版｜文件更新 2026-10-06
+版本 0.2.1｜隔離試行版｜文件更新 2026-10-06
 
-本套件由 ISHA-TAICHUNG 分享，協助事業單位把設備的紙本檢查與異常追蹤轉為電子流程。導入方式以 **AI 協助安裝、設定優先、沿固定架構擴充** 為主：使用者提供設備、原始檢查表與責任分工，AI 協助準備環境、產生設定草稿及執行測試。
+本套件由 ISHA-TAICHUNG 分享，協助事業單位把設備的紙本檢查與異常追蹤轉為電子流程。導入方式以 **AI 協助安裝、設定優先、沿固定架構擴充** 為主：使用者提供設備、原始檢查表與責任分工，AI 協助準備環境、產生設定草稿、核定後套用到本機隔離示範及執行測試。
 
 **現在可以安裝並操作隔離示範，還不能直接作正式檢查紀錄。** 本版不是完整的視覺化 Low-Code 編輯平台，也尚未完成正式系統的一鍵配置。LINE 目前只預覽名單、不發送；正式簽名、照片、一般 Google 使用者及正式復原驗收仍待完成。完整清單見 [實作狀態](docs/IMPLEMENTATION_STATUS.md)。
 
@@ -52,14 +52,20 @@
    僅在本套件目錄安裝 package.json 固定版本依賴，
    執行 npm install --ignore-scripts --package-lock=false、npm test、npm run demo。
    任何測試失敗就停止後續部署，提供原因，不解除保護來強行通過。
-4. 啟動 npm start，告訴我實際的本機網址。
+4. 執行 npm run install:sandbox -- --input config/example.json 預覽設定摘要。
+   向我確認摘要及示範範圍，取得核定後以同 input 加上
+   --apply --approve 加已核定的 configDigest。此命令會先重跑測試、示範及公開檔檢查，
+   成功才套用；失敗就停止，不刪 lock、資料或保護檔來繞過。
+   然後啟動 npm start，告訴我實際的本機網址。
    示範只能綁定 127.0.0.1，不公開假角色切換，不使用公網代理或隧道。
    本機示範 PDF 需要 Python 3 與 ReportLab；有能力就檢查依賴，
    未具備就列出安裝步驟與未完成項目，不假裝 PDF 已產生。
 5. 先帶我看每日／每月表單、異常與事件登錄、中控查閱及名單預覽。
    再詢問我的設備、去識別檢查表、角色範圍及通知規則，
    依格式產生 .local 私有設定草稿，驗證引用與日／月需求。
-   設定草稿不等於已套用；請明確說明本版尚缺的設定接線與驗收。
+   自訂示範應使用新的 --home 私有目錄，並以相同 KIT_HOME 啟動，
+   核定摘要後才套用；不要把已安裝的不同設定原地覆寫。
+   同設定重跑要出示 reused 與 readback 結果；套用只限本機，不代表 Google 已套用。
 6. 只有我另行同意，才依 docs/GOOGLE_TRIAL.md 建立全新、
    限擁有者的 Google 隔離專案；clasp 必須指定 -P 隔離目錄。
    本人登入、供應者安全提示與帳號授權由我在官方頁面完成。
@@ -77,9 +83,9 @@
 
 ## 3. 安裝後會看到什麼？
 
-| 模組 | 0.2.0 可試行內容 | 正式導入仍待完成 |
+| 模組 | 0.2.1 可試行內容 | 正式導入仍待完成 |
 | --- | --- | --- |
-| 設備與表單設定 | 虛構設備、範本、日／月需求與角色；可產生設定草稿 | 草稿不會自動套用；單位設定接線、核定與驗收 |
+| 設備與表單設定 | 設定摘要核定後可套用本機隔離示範；同設定重跑保留資料 | Google 配置接線、正式名單與核定；既有設定遷移未完成 |
 | 每日／每月檢查 | 行動表單、逐項結果與異常說明，日／月分開計算 | 本人正式簽名、照片、單位核定檢查表 |
 | 設備異常追蹤 | 接案、回報、確認與歷程的隔離流程 | 不同真人帳號流程、撤權及正式故障復原 |
 | 簡易事件登錄 | 地點、類型、緊急程度與說明，後續追蹤 | 單位事件規則、真實接收名單與通知驗收 |
@@ -99,6 +105,8 @@
 請讓 AI 出示實際結果，不只回答「已完成」。
 
 - 能開啟本機頁面，並明確標示隔離示範。
+- 設定核定後讀回一致；自訂設備及項目顯示在表單，同設定重跑不清空紀錄。
+- 不同設定、損壞設定或未完成啟用不能降級成範例，須停止並回報。
 - 每日／每月表單分開，結果預設未填；異常必須填說明。
 - 虛構案件可查看狀態與歷程；未結異常不能在下一次直接勾回正常。
 - 保存後重新啟動仍可讀回；同一操作重送不新增重複紀錄。
@@ -121,8 +129,10 @@
 檢查、處理、確認、檢視與管理角色：〔填角色代號及範圍〕
 哪些事件通知哪些角色：〔填事件與範圍〕
 
-先產生私有設定草稿，指出目前尚未接線的設定與未完成的正式模組。
+先產生私有設定草稿與安裝摘要，指出本機、Google 與正式模組的差異。
 人工核對前不套用，不覆寫已有設定或歷史表單，不部署、不發 LINE。
+核定後用 install:sandbox 的 --apply --approve 套用新的本機隔離目錄，
+以相同 KIT_HOME 啟動，核對設備、項目、日／月分母與重啟讀回。
 如果我要求的功能還沒實作，列出差距和最小修改範圍，再等我確認。
 ```
 
@@ -142,13 +152,22 @@ npm run demo
 npm run check:release
 ```
 
-確認前述命令通過後，另開終端啟動：
+預覽並核定本機隔離設定（把第二行字串換成第一行輸出的、經單位核定的摘要）：
+
+```bash
+npm run install:sandbox -- --input config/example.json
+npm run install:sandbox -- --input config/example.json --apply --approve "已核定的configDigest"
+```
+
+`--apply` 會先執行測試、示範及公開檔檢查，成功後保存與讀回；同設定可重跑。尚未安裝依賴時，可在預覽命令加 `--prepare-environment`，只在套件目錄執行固定的 npm 安裝命令。它不會安裝 Python、clasp、建立雲端資源或發通知。
+
+確認安裝的 `applied`、`readback` 為 true 後，另開終端啟動：
 
 ```bash
 npm start
 ```
 
-預設 [本機網址](http://127.0.0.1:4317)，資料保存在 `.local/sandbox`。不得把角色切換代理到公網。若連接埠已被使用，由維護者指定未占用的 `KIT_PORT`，不要停止其他專案。
+預設 [本機網址](http://127.0.0.1:4317)。核定設定、收據及資料保存在 `.local/installations`，啟用指標在 `.local/active-installation.json`；尚未配置時舊示範仍使用 `.local/sandbox`，不搬移其資料。不得把角色切換代理到公網。若連接埠已被使用，由維護者指定未占用的 `KIT_PORT`，不要停止其他專案。
 
 本機示範 PDF 另需 Python 3 的 ReportLab，可用 `KIT_PYTHON` 指定已安裝的 Python。未安裝時拒絕產製，不宣稱已歸檔。
 
@@ -158,7 +177,7 @@ npm start
 npm run configure -- --input config/example.json
 ```
 
-輸出 `.local/config.draft.json`，不自動套用、不連雲端；同名草稿已存在時拒絕覆寫，不刪原檔來繞過。Google 隔離流程見 [GOOGLE_TRIAL.md](docs/GOOGLE_TRIAL.md)，私人身分綁定與資源 ID 僅放私有後端／`.local`。
+輸出 `.local/config.draft.json`，不自動套用、不連雲端；同名草稿已存在時拒絕覆寫，不刪原檔來繞過。核定後使用 `install:sandbox`；不同配置使用新 `--home` 與相同 `KIT_HOME`。安裝／故障界線見 [INSTALLATION.md](docs/INSTALLATION.md)。Google 隔離流程見 [GOOGLE_TRIAL.md](docs/GOOGLE_TRIAL.md)，私人身分綁定與資源 ID 僅放私有後端／`.local`。
 
 `npm run package:review` 只產生候選檔審查 ZIP，不包含私有檔或 Git 歷史，不執行公開發布。
 
@@ -175,7 +194,7 @@ npm run configure -- --input config/example.json
 
 ## 7. 開源、資料與責任
 
-來源：[ISHA-TAICHUNG/self-inspection-basic-kit](https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit)。版本 0.2.0 是隔離試行／學習用來源，不是正式營運版。原始碼與虛構範例公開；真人身分、LINE 綁定、照片、簽名、業務紀錄、私人資料庫及憑證不公開。
+來源：[ISHA-TAICHUNG/self-inspection-basic-kit](https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit)。版本 0.2.1 是隔離試行／學習用來源，不是正式營運版。原始碼與虛構範例公開；真人身分、LINE 綁定、照片、簽名、業務紀錄、私人資料庫及憑證不公開。
 
 不開資料庫或歸檔的「知道連結者可檢視」，不把 Token 放前端或 GitHub Pages。公開套件不包含本會正式系統的資料或 Git 歷史。
 

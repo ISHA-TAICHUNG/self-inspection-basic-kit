@@ -5,7 +5,7 @@
 1. 先讀 [README 的 Low-Code 導入指南](README.md)，複製第 2 節安裝提示詞，交給自己的 AI 工具。現在可操作隔離表單與案件流程，尚不能正式填報或發 LINE。
 2. 指定一位業務負責人及一位維護者，整理自己的設備、原始紙本表、每日／每月規則、場域與接收角色。
 3. 需要完整步驟時使用 [BUILD_WITH_AI.md](prompts/BUILD_WITH_AI.md)；來源為已公開的 [ISHA-TAICHUNG/self-inspection-basic-kit](https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit)，也可提供本套件檔案。
-4. 模型先用虛構資料跑本機測試，再協助產生私有設定草稿；人工核對後才安排雲端整合與受限測試。
+4. 模型先用虛構資料跑本機測試，再協助產生私有設定草稿；人工核對摘要後，使用 `install:sandbox --apply --approve` 套用本機示範，詳細流程見 [INSTALLATION.md](docs/INSTALLATION.md)。本機通過不代表雲端與 LINE 完成。
 5. 授權、資料存取、真實 LINE 測試與正式上線各自確認，不把一個「開始」當成全部同意。
 
 不要把真實人員名單或任何密碼／Token 貼到公開模型對話。用「檢查人 A」「處理人 B」等角色代號先討論，真實身分綁定只在單位自己的私有後端完成。

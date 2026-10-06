@@ -3,12 +3,16 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { FileSandboxRepository } from '../src/adapters/file-sandbox.mjs';
 import { createLocalWeb } from '../src/adapters/local-web.mjs';
+import { loadInstallation } from '../src/adapters/installation.mjs';
+import { existsSync } from 'node:fs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const port = Number(process.env.KIT_PORT ?? 4317);
 if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('PORT_INVALID');
-const config = JSON.parse(await readFile(resolve(root, 'config/example.json'), 'utf8'));
-const repository = new FileSandboxRepository(resolve(root, '.local/sandbox'), config);
+const home = resolve(process.env.KIT_HOME ?? resolve(root, '.local'));
+const installed = existsSync(home) ? loadInstallation(home) : null;
+const config = installed?.config ?? JSON.parse(await readFile(resolve(root, 'config/example.json'), 'utf8'));
+const repository = new FileSandboxRepository(installed?.dataDirectory ?? resolve(home, 'sandbox'), config);
 const web = createLocalWeb({ config, repository });
 try { console.log('本機隔離示範：' + await web.listen(port)); }
 catch (error) { repository.close(); throw error; }

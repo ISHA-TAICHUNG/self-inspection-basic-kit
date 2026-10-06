@@ -1,6 +1,6 @@
 {
   "name": "self-inspection-basic-kit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "description": "事業單位自主檢查與異常通報基礎套件：隔離架構原型",
@@ -12,6 +12,7 @@
     "start": "node scripts/serve.mjs",
     "demo": "node scripts/demo.mjs",
     "configure": "node scripts/configure.mjs",
+    "install:sandbox": "node scripts/install.mjs",
     "check:release": "node scripts/check-release.mjs",
     "package:review": "node scripts/package-review.mjs"
   },

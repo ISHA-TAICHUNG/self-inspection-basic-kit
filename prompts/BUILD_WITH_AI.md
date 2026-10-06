@@ -1,6 +1,6 @@
 # 常見大語言模型建置提示詞
 
-已核對公開來源：https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit 。0.2.0 為隔離試行版；正式替換層未完成，請先讀實作狀態。
+套件來源：https://github.com/ISHA-TAICHUNG/self-inspection-basic-kit 。本文件對應 0.2.1 本機隔離配置，請核對取得的 commit 與 package 版本；正式替換層未完成，先讀實作狀態。
 
 ## 通用啟動提示詞
 
@@ -40,6 +40,10 @@ docs/IMPLEMENTATION_STATUS.md、SETUP_FOR_AI.md 及 AGENTS.md。
 - 依 schemaVersion 1 產生去識別設定草稿，驗證引用、範圍、角色、日／月需求。
 - 可執行時使用 npm run configure -- --input <去識別 JSON 路徑>。
 - 設定輸出 .local 私有目錄，不寫入公開原始碼，不覆寫歷史版本。
+- 使用 npm run install:sandbox -- --input 加上設定路徑預覽摘要，先讓我核對並核定。
+- 核定後才加 --apply --approve 加上該 configDigest，測試及公開檔檢查失敗就停止。
+- 不同示範設定用新的 --home，以相同 KIT_HOME 啟動；同設定重跑要核對 reused/readback。
+- 只套用本機配置，不宣稱 Google／LINE 或正式系統已配置。
 - 僅補缺少的模組，保持既有業務契約、單一操作入口、防重送與版本核對。
 - 不把假身分驗證或記憶體儲存接到公開網站。
 

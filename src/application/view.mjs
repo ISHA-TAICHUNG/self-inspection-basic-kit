@@ -25,7 +25,7 @@ export function webState(service, context, capabilities) {
   const config = service.config;
   const requirements = config.requirements.filter(row => progress.some(item => item.id === row.id));
   const templateIds = new Set(requirements.map(row => row.templateId));
-  return { version: '0.2.0', viewer: { id: actor.id, label: actor.label, roles: actor.roles },
+  return { version: '0.2.1', viewer: { id: actor.id, label: actor.label, roles: actor.roles },
     organization: config.organization, timeZone: config.timeZone, capabilities,
     sites: config.sites.filter(row => actor.sites.includes(row.id)),
     equipment: config.equipment.filter(row => actor.sites.includes(row.siteId)),

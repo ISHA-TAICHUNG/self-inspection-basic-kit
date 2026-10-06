@@ -1,6 +1,6 @@
 # 基礎套件架構基準
 
-架構版本 1.1｜資料 schemaVersion 1｜程式 0.2.0｜2026-10-06
+架構版本 1.1｜資料 schemaVersion 1｜程式 0.2.1｜2026-10-06
 
 ## 1. 定位與穩定範圍
 
@@ -29,6 +29,8 @@
 正式目標使用一個單位一份 Google 資料庫、一個 Apps Script 專案及單位自己的 LINE 官方帳號。`npm run build` 已提供 ES module 與 SHA-256 替換層的 GAS 建置轉換，限擁有者隔離試行；不能原檔貼入 Apps Script，也不能將此建置視為正式多使用者系統已驗收。
 
 已核定 Google 登入加管理者名單，LINE 僅作通知。首輪 Google 版限 `MYSELF`，取伺服器 `Session.getActiveUser()`，空身分拒絕；`getEffectiveUser()` 只用來核對資源擁有者，不能冒充操作人。一般使用者、多帳號及撤權整合仍另驗，不以擁有者自測推論已完成。
+
+0.2.1 的 `installation.mjs`／`install:sandbox` 僅把核定設定接到本機替換層：以設定摘要建立私有安裝、保存收據及啟用指標，同設定重跑保留紀錄；不同設定拒絕原地遷移。Google 版仍使用隔離範例，不把本機配置接線說成真實雲端導入已完成。業務模組、角色、schema 與資料歷程契約保持不變。
 
 ## 3. 模組分工
 
